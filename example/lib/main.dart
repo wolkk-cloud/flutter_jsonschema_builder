@@ -92,6 +92,12 @@ class _MyHomePageState extends State<MyHomePage> {
           }
       ],
       "title":"Ocupación o profesión"
+    },
+    "isGood" :  {
+      "type":"boolean",
+       "description": "This is the select-description",
+      "format" : "date",
+      "title":"good o profesión"
     }
 
   }
@@ -100,10 +106,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   ''';
 
+  final jsonSchema = '''
+  { "title": "example", "type": "object", "properties": { "select1": { "title" : "Select your Cola", "type": "number" } } }
+  ''';
+
   final uiSchema = '''
 
 {
- "gender": {
+ "select": {
 						"ui:widget": "radio"
 					}
 }
@@ -133,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Material(
               child: JsonForm(
-                jsonSchema: json,
+                jsonSchema: jsonSchema,
                 uiSchema: uiSchema,
                 onFormDataSaved: (data) {
                   inspect(data);
