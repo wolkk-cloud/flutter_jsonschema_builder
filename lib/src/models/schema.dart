@@ -11,7 +11,7 @@ class Schema {
   Schema(
       {required this.id,
       required this.type,
-      this.title = 'no-title',
+      this.title,
       this.description,
       this.parentIdKey,
       List<String>? dependentsAddedBy})
@@ -57,7 +57,7 @@ class Schema {
 
   // props
   String id;
-  String title;
+  String? title;
   String? description;
   SchemaType type;
 
@@ -99,7 +99,6 @@ class SchemaEnum extends Schema {
   SchemaEnum({required this.enumm})
       : super(
           id: kNoIdKey,
-          title: 'no-title',
           type: SchemaType.enumm,
         );
 

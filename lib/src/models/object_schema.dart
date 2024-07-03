@@ -9,7 +9,6 @@ class SchemaObject extends Schema {
     String? description,
   }) : super(
           id: id,
-          title: title ?? 'no-title',
           type: SchemaType.object,
           description: description,
         );

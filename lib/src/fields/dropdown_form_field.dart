@@ -119,6 +119,7 @@ class _DropDownJFormFieldState extends State<DropDownJFormField> {
     for (var i = 0; i < widget.property.enumm!.length; i++) {
       final value = widget.property.enumm![i];
       final text = widget.property.enumNames?[i] ?? value;
+      print('value: $value, text: $text');
       w.add(
         DropdownMenuItem(
           child: Text(text.toString()),

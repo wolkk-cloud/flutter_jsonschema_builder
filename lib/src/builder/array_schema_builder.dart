@@ -40,7 +40,9 @@ class _ArraySchemaBuilderState extends State<ArraySchemaBuilder> {
           children: [
             const SizedBox(width: double.infinity),
             GeneralSubtitle(
-              title: widget.schemaArray.title,
+              title: widget.schemaArray.title ??
+                  widget.schemaArray.description ??
+                  '',
               description: widget.schemaArray.description,
               mainSchemaTitle: widget.mainSchema.title,
               nainSchemaDescription: widget.mainSchema.description,

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cross_file/cross_file.dart';
@@ -95,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
     },
     "isGood" :  {
       "type":"boolean",
-       "description": "This is the select-description",
+      "description": "This is the select-description",
       "format" : "date",
       "title":"good o profesión"
     }
@@ -107,18 +108,83 @@ class _MyHomePageState extends State<MyHomePage> {
   ''';
 
   final jsonSchema = '''
-  { "title": "example", "type": "object", "properties": { "select1": { "title" : "Select your Cola", "type": "number" } } }
-  ''';
+  {
+    "type": "object",
+    "description": "Geo fruits surway",
+    "properties": {
+      "question": {
+        "type": "string",
+        "description": "Do you like apples?",
+        "enum": ["Yes, coz I'm Tom Cook", "Yes", "No"]
+      },
+      "when": {
+        "type": "string",
+        "format": "date-time",
+        "description": "When did realise that like/dislike apples?"
+      },
+      "amount": {
+        "type": "number",
+        "minimum": 0,
+        "description": "How many apples do you eat per day?",
+        "default": "0"
+      },
+      "will": {
+        "type": "boolean",
+        "description":
+            "Are you willing to eat only apples till the end of your life?"
+      }
+    },
+    "required": ["question", "when"]
+  } ''';
+  final Map<String, dynamic> jsonSchema1 = {
+    "type": "object",
+    "description": "Geo fruits surway",
+    "properties": {
+      "question": {
+        "type": "string",
+        "description": "Do you like apples?",
+        "enum": ["Yes, coz I'm Tom Cook", "Yes", "No"]
+      },
+      "when": {
+        "type": "string",
+        "format": "date-time",
+        "description": "When did realise that like/dislike apples?"
+      },
+      "amount": {
+        "type": "number",
+        "minimum": 0,
+        "description": "How many apples do you eat per day?",
+        "default": 0
+      },
+      "will": {
+        "type": "boolean",
+        "description":
+            "Are you willing to eat only apples till the end of your life?"
+      }
+    },
+    "required": ["question", "when"]
+  };
 
   final uiSchema = '''
 
 {
- "select": {
+ "question": {
 						"ui:widget": "radio"
 					}
 }
 
         ''';
+
+  Map<String, dynamic> updateIntegerValuesToString(Map<String, dynamic> json) {
+    json.forEach((key, value) {
+      if (value is Map<String, dynamic>) {
+        updateIntegerValuesToString(value);
+      } else if (value is int) {
+        json[key] = value.toString();
+      }
+    });
+    return json;
+  }
 
   Future<List<XFile>?> defaultCustomFileHandler() async {
     await Future.delayed(const Duration(seconds: 3));
@@ -143,8 +209,10 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Material(
               child: JsonForm(
-                jsonSchema: jsonSchema,
+                jsonSchema:
+                    jsonEncode(updateIntegerValuesToString(jsonSchema1)),
                 uiSchema: uiSchema,
+                showHeader: false,
                 onFormDataSaved: (data) {
                   inspect(data);
                 },

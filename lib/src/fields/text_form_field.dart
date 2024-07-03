@@ -48,7 +48,8 @@ class _TextJFormFieldState extends State<TextJFormField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('${widget.property.title} ${widget.property.required ? "*" : ""}',
+        Text(
+            '${widget.property.title ?? widget.property.description} ${widget.property.required ? "*" : ""}',
             style: WidgetBuilderInherited.of(context).uiConfig.fieldTitle),
         AbsorbPointer(
           absorbing: widget.property.disabled ?? false,

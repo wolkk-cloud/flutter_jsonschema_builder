@@ -9,10 +9,12 @@ class ObjectSchemaBuilder extends StatefulWidget {
     Key? key,
     required this.mainSchema,
     required this.schemaObject,
+    this.showHeader = true,
   }) : super(key: key);
 
   final Schema mainSchema;
   final SchemaObject schemaObject;
+  final bool showHeader;
 
   @override
   State<ObjectSchemaBuilder> createState() => _ObjectSchemaBuilderState();
@@ -39,12 +41,15 @@ class _ObjectSchemaBuilderState extends State<ObjectSchemaBuilder> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GeneralSubtitle(
-            title: widget.schemaObject.title,
-            description: widget.schemaObject.description,
-            mainSchemaTitle: widget.mainSchema.title,
-            nainSchemaDescription: widget.mainSchema.description,
-          ),
+          if (widget.showHeader)
+            GeneralSubtitle(
+              title: widget.schemaObject.title ??
+                  widget.schemaObject.description ??
+                  '',
+              description: widget.schemaObject.description,
+              mainSchemaTitle: widget.mainSchema.title,
+              nainSchemaDescription: widget.mainSchema.description,
+            ),
           if (widget.schemaObject.properties != null)
             ...widget.schemaObject.properties!
                 .map((e) => FormFromSchemaBuilder(

@@ -20,7 +20,6 @@ class SchemaArray extends Schema {
     this.required = false,
   }) : super(
           id: id,
-          title: title ?? 'no-title',
           type: SchemaType.array,
         );
 

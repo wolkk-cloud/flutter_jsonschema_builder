@@ -45,7 +45,8 @@ class _NumberJFormFieldState extends State<NumberJFormField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('${widget.property.title} ${widget.property.required ? "*" : ""}',
+        Text(
+            '${widget.property.title ?? widget.property.description} ${widget.property.required ? "*" : ""}',
             style: WidgetBuilderInherited.of(context).uiConfig.fieldTitle),
         TextFormField(
           key: Key(widget.property.idKey),

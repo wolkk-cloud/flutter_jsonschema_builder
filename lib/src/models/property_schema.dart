@@ -49,7 +49,6 @@ class SchemaProperty extends Schema {
     this.readOnly = false,
   }) : super(
           id: id,
-          title: title ?? 'no-title',
           type: type,
           description: description,
         );

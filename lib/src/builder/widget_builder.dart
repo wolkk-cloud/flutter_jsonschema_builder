@@ -31,6 +31,8 @@ class JsonForm extends StatefulWidget {
     this.jsonFormSchemaUiConfig,
     this.customPickerHandler,
     this.customValidatorHandler,
+    this.showInspect = false,
+    this.showHeader = true,
   }) : super(key: key);
 
   final String jsonSchema;
@@ -44,6 +46,10 @@ class JsonForm extends StatefulWidget {
   final CustomPickerHandler? customPickerHandler;
 
   final CustomValidatorHandler? customValidatorHandler;
+
+  final bool showInspect;
+
+  final bool showHeader;
   @override
   _JsonFormState createState() => _JsonFormState();
 }
@@ -82,17 +88,18 @@ class _JsonFormState extends State<JsonForm> {
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: <Widget>[
-                  if (!kReleaseMode)
+                  if (widget.showInspect)
                     TextButton(
                       onPressed: () {
                         inspect(mainSchema);
                       },
                       child: const Text('INSPECT'),
                     ),
-                  _buildHeaderTitle(context),
+                  if (widget.showHeader) _buildHeaderTitle(context),
                   FormFromSchemaBuilder(
                     mainSchema: mainSchema,
                     schema: mainSchema,
+                    showHeader: widget.showHeader,
                   ),
                   const SizedBox(height: 20),
                   widgetBuilderInherited.uiConfig.submitButtonBuilder == null
@@ -118,7 +125,7 @@ class _JsonFormState extends State<JsonForm> {
         SizedBox(
           width: double.infinity,
           child: Text(
-            mainSchema.title,
+            mainSchema.title ?? mainSchema.description ?? '',
             style: WidgetBuilderInherited.of(context).uiConfig.title,
             textAlign: WidgetBuilderInherited.of(context).uiConfig.titleAlign,
           ),
@@ -155,10 +162,12 @@ class FormFromSchemaBuilder extends StatelessWidget {
     required this.mainSchema,
     required this.schema,
     this.schemaObject,
+    this.showHeader = true,
   }) : super(key: key);
   final Schema mainSchema;
   final Schema schema;
   final SchemaObject? schemaObject;
+  final bool showHeader;
 
   @override
   Widget build(BuildContext context) {
@@ -179,6 +188,7 @@ class FormFromSchemaBuilder extends StatelessWidget {
       return ObjectSchemaBuilder(
         mainSchema: mainSchema,
         schemaObject: schema as SchemaObject,
+        showHeader: showHeader,
       );
     }
 

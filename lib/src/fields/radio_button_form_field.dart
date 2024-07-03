@@ -89,17 +89,19 @@ class _RadioButtonJFormFieldState extends State<RadioButtonJFormField> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-                '${widget.property.title} ${widget.property.required ? "*" : ""}',
+                '${widget.property.title ?? widget.property.description} ${widget.property.required ? "*" : ""}',
                 style: WidgetBuilderInherited.of(context).uiConfig.fieldTitle),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: List<Widget>.generate(
-                  widget.property.enumNames?.length ?? 0,
+                  widget.property.enumm?.length ?? 0,
                   (int i) => RadioListTile(
                         value: widget.property.enumm != null
                             ? widget.property.enumm![i]
                             : i,
-                        title: Text(widget.property.enumNames?[i],
+                        title: Text(
+                            widget.property.enumNames?[i] ??
+                                widget.property.enumm?[i],
                             style: widget.property.readOnly
                                 ? const TextStyle(color: Colors.grey)
                                 : WidgetBuilderInherited.of(context)
