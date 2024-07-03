@@ -51,6 +51,7 @@ class _TextJFormFieldState extends State<TextJFormField> {
         Text(
             '${widget.property.title ?? widget.property.description} ${widget.property.required ? "*" : ""}',
             style: WidgetBuilderInherited.of(context).uiConfig.fieldTitle),
+        const SizedBox(height: 20),
         AbsorbPointer(
           absorbing: widget.property.disabled ?? false,
           child: TextFormField(
@@ -87,19 +88,25 @@ class _TextJFormFieldState extends State<TextJFormField> {
             style: widget.property.readOnly
                 ? const TextStyle(color: Colors.grey)
                 : WidgetBuilderInherited.of(context).uiConfig.label,
-            decoration: InputDecoration(
-              helperText: widget.property.help != null &&
-                      widget.property.help!.isNotEmpty
-                  ? widget.property.help
-                  : null,
-              labelStyle: const TextStyle(color: Colors.blue),
-              errorStyle: WidgetBuilderInherited.of(context).uiConfig.error,
-            ),
+            decoration: WidgetBuilderInherited.of(context)
+                    .uiConfig
+                    .textfieldDecoration
+                    ?.copyWith(helperText: _helperText) ??
+                InputDecoration(
+                  helperText: _helperText,
+                  labelStyle: const TextStyle(color: Colors.blue),
+                  errorStyle: WidgetBuilderInherited.of(context).uiConfig.error,
+                ),
           ),
         ),
       ],
     );
   }
+
+  String? get _helperText =>
+      widget.property.help != null && widget.property.help!.isNotEmpty
+          ? widget.property.help
+          : null;
 
   TextInputType getTextInputTypeFromFormat(PropertyFormat format) {
     late TextInputType textInputType;

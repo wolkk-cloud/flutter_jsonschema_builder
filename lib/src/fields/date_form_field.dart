@@ -49,9 +49,10 @@ class _DateJFormFieldState extends State<DateJFormField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${widget.property.title} ${widget.property.required ? "*" : ""}',
+          '${widget.property.title ?? widget.property.description} ${widget.property.required ? "*" : ""}',
           style: WidgetBuilderInherited.of(context).uiConfig.fieldTitle,
         ),
+        const SizedBox(height: 20),
         TextFormField(
           key: Key(widget.property.idKey),
           controller: txtDateCtrl,
@@ -81,22 +82,36 @@ class _DateJFormFieldState extends State<DateJFormField> {
               return;
             }
           },
-          decoration: InputDecoration(
-            hintText: dateFormatString.toUpperCase(),
-            helperText:
-                widget.property.help != null && widget.property.help!.isNotEmpty
-                    ? widget.property.help
-                    : null,
-            suffixIcon: IconButton(
-              icon: const Icon(Icons.date_range_outlined),
-              onPressed: widget.property.readOnly ? null : _openCalendar,
-            ),
-            errorStyle: WidgetBuilderInherited.of(context).uiConfig.error,
-          ),
+          decoration: WidgetBuilderInherited.of(context)
+                  .uiConfig
+                  .textfieldDecoration
+                  ?.copyWith(
+                    suffixIcon: _suffixIcon,
+                    helperText: _helperText,
+                    hintText: _hintText,
+                  ) ??
+              InputDecoration(
+                hintText: _hintText,
+                helperText: _helperText,
+                suffixIcon: _suffixIcon,
+                errorStyle: WidgetBuilderInherited.of(context).uiConfig.error,
+              ),
         ),
       ],
     );
   }
+
+  String? get _hintText => widget.property.title ?? widget.property.description;
+
+  String? get _helperText =>
+      widget.property.help != null && widget.property.help!.isNotEmpty
+          ? widget.property.help
+          : null;
+
+  Widget get _suffixIcon => IconButton(
+        icon: const Icon(Icons.calendar_today),
+        onPressed: _openCalendar,
+      );
 
   void _openCalendar() async {
     late DateTime tempDate;

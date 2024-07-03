@@ -10,6 +10,8 @@ PropertyFormat propertyFormatFromString(String? value) {
       return PropertyFormat.date;
     case 'datetime':
       return PropertyFormat.datetime;
+    case 'date-time':
+      return PropertyFormat.datetime;
     case 'email':
       return PropertyFormat.email;
     case 'data-url':

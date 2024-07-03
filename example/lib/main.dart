@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
     },
     "required": ["question", "when"]
   } ''';
-  final Map<String, dynamic> jsonSchema1 = {
+  final Map<dynamic, dynamic> jsonSchema1 = {
     "type": "object",
     "description": "Geo fruits surway",
     "properties": {
@@ -176,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         ''';
 
-  Map<String, dynamic> updateNumValuesToString(Map<String, dynamic> json) {
+  Map<dynamic, dynamic> updateNumValuesToString(Map<dynamic, dynamic> json) {
     json.forEach((key, value) {
       if (value is Map<String, dynamic>) {
         updateNumValuesToString(value);
@@ -262,6 +262,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
+                  ),
+                  textfieldDecoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                    ),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 15,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                      borderSide: BorderSide(
+                        width: 1,
+                        color: Colors.black26,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                      borderSide: BorderSide(
+                        width: 1,
+                        color: Colors.black26,
+                      ),
+                    ),
+                    isDense: true,
+                    isCollapsed: true,
+                    filled: true,
                   ),
                   fieldTitle: const TextStyle(color: Colors.pink, fontSize: 12),
                   submitButtonBuilder: (onSubmit) => TextButton.icon(

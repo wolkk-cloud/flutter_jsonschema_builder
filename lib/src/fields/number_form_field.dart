@@ -48,6 +48,7 @@ class _NumberJFormFieldState extends State<NumberJFormField> {
         Text(
             '${widget.property.title ?? widget.property.description} ${widget.property.required ? "*" : ""}',
             style: WidgetBuilderInherited.of(context).uiConfig.fieldTitle),
+        const SizedBox(height: 20),
         TextFormField(
           key: Key(widget.property.idKey),
           keyboardType: TextInputType.number,
@@ -84,13 +85,14 @@ class _NumberJFormFieldState extends State<NumberJFormField> {
               return widget.customValidator!(value);
             return null;
           },
-          decoration: InputDecoration(
-            helperText:
-                widget.property.help != null && widget.property.help!.isNotEmpty
-                    ? widget.property.help
-                    : null,
-            errorStyle: WidgetBuilderInherited.of(context).uiConfig.error,
-          ),
+          decoration: WidgetBuilderInherited.of(context)
+                  .uiConfig
+                  .textfieldDecoration
+                  ?.copyWith(helperText: _helperText) ??
+              InputDecoration(
+                helperText: _helperText,
+                errorStyle: WidgetBuilderInherited.of(context).uiConfig.error,
+              ),
         ),
       ],
     );
@@ -98,4 +100,9 @@ class _NumberJFormFieldState extends State<NumberJFormField> {
 
   String get decorationLabelText =>
       '${widget.property.title} ${widget.property.required ? "*" : ""} ${widget.property.description ?? ""}';
+
+  String? get _helperText =>
+      widget.property.help != null && widget.property.help!.isNotEmpty
+          ? widget.property.help
+          : null;
 }
