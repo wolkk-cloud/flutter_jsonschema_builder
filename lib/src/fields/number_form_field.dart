@@ -58,6 +58,7 @@ class _NumberJFormFieldState extends State<NumberJFormField> {
           onSaved: widget.onSaved,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           readOnly: widget.property.readOnly,
+          initialValue: widget.property.defaultValue ?? '',
           onChanged: (value) {
             if (_timer != null && _timer!.isActive) _timer!.cancel();
 

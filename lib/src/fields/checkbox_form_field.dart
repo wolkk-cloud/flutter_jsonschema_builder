@@ -38,9 +38,9 @@ class _CheckboxJFormFieldState extends State<CheckboxJFormField> {
         Text(
             '${widget.property.title ?? widget.property.description} ${widget.property.required ? "*" : ""}',
             style: WidgetBuilderInherited.of(context).uiConfig.fieldTitle),
-        FormField<bool>(
+        FormField<bool?>(
           key: Key(widget.property.idKey),
-          initialValue: widget.property.defaultValue ?? false,
+          initialValue: widget.property.defaultValue,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           onSaved: (newValue) {
             widget.onSaved(newValue);
@@ -56,7 +56,7 @@ class _CheckboxJFormFieldState extends State<CheckboxJFormField> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CheckboxListTile(
-                  value: (field.value == null) ? false : field.value,
+                  value: field.value,
                   title: Text(
                     widget.property.title ?? 'Yes',
                     style: widget.property.readOnly
@@ -72,6 +72,7 @@ class _CheckboxJFormFieldState extends State<CheckboxJFormField> {
                             widget.onChanged!(value);
                           }
                         },
+                  tristate: true,
                 ),
                 if (field.hasError) CustomErrorText(text: field.errorText!),
               ],

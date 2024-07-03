@@ -144,6 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
         "type": "string",
         "description": "Do you like apples?",
         "enum": ["Yes, coz I'm Tom Cook", "Yes", "No"]
+        // "default": "yes"
       },
       "when": {
         "type": "string",
@@ -154,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
         "type": "number",
         "minimum": 0,
         "description": "How many apples do you eat per day?",
-        "default": 0
+        "default": 1.1
       },
       "will": {
         "type": "boolean",
@@ -175,11 +176,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
         ''';
 
-  Map<String, dynamic> updateIntegerValuesToString(Map<String, dynamic> json) {
+  Map<String, dynamic> updateNumValuesToString(Map<String, dynamic> json) {
     json.forEach((key, value) {
       if (value is Map<String, dynamic>) {
-        updateIntegerValuesToString(value);
-      } else if (value is int) {
+        updateNumValuesToString(value);
+      } else if (value is num) {
         json[key] = value.toString();
       }
     });
@@ -209,8 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Material(
               child: JsonForm(
-                jsonSchema:
-                    jsonEncode(updateIntegerValuesToString(jsonSchema1)),
+                jsonSchema: jsonEncode(updateNumValuesToString(jsonSchema1)),
                 uiSchema: uiSchema,
                 showHeader: false,
                 onFormDataSaved: (data) {

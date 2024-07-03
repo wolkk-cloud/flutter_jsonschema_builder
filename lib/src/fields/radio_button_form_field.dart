@@ -5,6 +5,7 @@ import 'package:flutter_jsonschema_builder/src/builder/logic/widget_builder_logi
 import 'package:flutter_jsonschema_builder/src/fields/fields.dart';
 import 'package:flutter_jsonschema_builder/src/fields/shared.dart';
 import '../models/models.dart';
+import '../utils/input_validation_json_schema.dart';
 
 class RadioButtonJFormField extends PropertyFieldWidget<dynamic> {
   const RadioButtonJFormField({
@@ -52,7 +53,7 @@ class _RadioButtonJFormFieldState extends State<RadioButtonJFormField> {
     if (widget.property.type == SchemaType.boolean) {
       groupValue = widget.property.defaultValue;
     } else {
-      groupValue = widget.property.defaultValue ?? 0;
+      groupValue = null;
     }
 
     widget.triggetDefaultValue();
@@ -79,6 +80,9 @@ class _RadioButtonJFormFieldState extends State<RadioButtonJFormField> {
         widget.onSaved(newValue);
       },
       validator: (value) {
+        if (widget.property.required && value == null) {
+          return 'Required';
+        }
         if (widget.customValidator != null)
           return widget.customValidator!(value);
 
