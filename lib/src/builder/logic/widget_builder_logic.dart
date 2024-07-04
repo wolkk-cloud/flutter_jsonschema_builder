@@ -49,6 +49,7 @@ class WidgetBuilderInherited extends InheritedWidget {
       fieldTitle: uiConfig?.fieldTitle ?? textTheme.bodyMedium,
       label: uiConfig?.label,
       textfieldDecoration: uiConfig?.textfieldDecoration,
+      customTheme: uiConfig?.customTheme,
       //builders
       addItemBuilder: uiConfig?.addItemBuilder,
       removeItemBuilder: uiConfig?.removeItemBuilder,

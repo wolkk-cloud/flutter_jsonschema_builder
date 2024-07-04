@@ -14,6 +14,7 @@ class JsonFormSchemaUiConfig {
     this.submitButtonBuilder,
     this.addFileButtonBuilder,
     this.textfieldDecoration,
+    this.customTheme,
   });
 
   TextStyle? fieldTitle;
@@ -24,6 +25,7 @@ class JsonFormSchemaUiConfig {
   TextStyle? description;
   TextStyle? label;
   InputDecoration? textfieldDecoration;
+  ThemeData? customTheme;
 
   Widget Function(VoidCallback onPressed, String key)? addItemBuilder;
   Widget Function(VoidCallback onPressed, String key)? removeItemBuilder;

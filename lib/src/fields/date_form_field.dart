@@ -103,7 +103,7 @@ class _DateJFormFieldState extends State<DateJFormField> {
     );
   }
 
-  String? get _hintText => widget.property.title ?? widget.property.description;
+  String? get _hintText => dateFormatString.toUpperCase();
 
   String? get _helperText =>
       widget.property.help != null && widget.property.help!.isNotEmpty
@@ -128,6 +128,13 @@ class _DateJFormFieldState extends State<DateJFormField> {
       initialDate: tempDate,
       firstDate: DateTime(1900),
       lastDate: DateTime(2099),
+      builder: (_, child) {
+        return Theme(
+          data: WidgetBuilderInherited.of(context).uiConfig.customTheme ??
+              Theme.of(context),
+          child: child!,
+        );
+      },
     );
 
     if (date != null) txtDateCtrl.text = formatter.format(date);
