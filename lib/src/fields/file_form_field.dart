@@ -43,7 +43,9 @@ class _FileJFormFieldState extends State<FileJFormField> {
       key: Key(widget.property.idKey),
       validator: (value) {
         if ((value == null || value.isEmpty) && widget.property.required) {
-          return 'Required';
+          return WidgetBuilderInherited.of(context)
+              .localizationLabelConfig
+              .requiredLabel;
         }
 
         if (widget.customValidator != null)

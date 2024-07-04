@@ -61,7 +61,8 @@ class _DropDownJFormFieldState extends State<DropDownJFormField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('${widget.property.title} ${widget.property.required ? "*" : ""}',
+        Text(
+            '${widget.property.title ?? widget.property.description} ${widget.property.required ? "*" : ""}',
             style: WidgetBuilderInherited.of(context).uiConfig.fieldTitle),
         GestureDetector(
           onTap: _onTap,
@@ -70,11 +71,16 @@ class _DropDownJFormFieldState extends State<DropDownJFormField> {
             child: DropdownButtonFormField<dynamic>(
               key: Key(widget.property.idKey),
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              hint: const Text('Seleccione'),
+              hint: Text(WidgetBuilderInherited.of(context)
+                      .localizationLabelConfig
+                      .selectOneLabel ??
+                  'Select one'),
               isExpanded: false,
               validator: (value) {
                 if (widget.property.required && value == null) {
-                  return 'required';
+                  return WidgetBuilderInherited.of(context)
+                      .localizationLabelConfig
+                      .requiredLabel;
                 }
                 if (widget.customValidator != null)
                   return widget.customValidator!(value);

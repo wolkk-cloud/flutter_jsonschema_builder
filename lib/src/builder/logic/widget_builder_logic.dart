@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_jsonschema_builder/src/builder/widget_builder.dart';
 import 'package:flutter_jsonschema_builder/src/models/json_form_schema_style.dart';
+import 'package:flutter_jsonschema_builder/src/models/json_schema_localization_label_config.dart';
 import 'package:flutter_jsonschema_builder/src/models/schema.dart';
 
 class WidgetBuilderInherited extends InheritedWidget {
@@ -22,6 +23,14 @@ class WidgetBuilderInherited extends InheritedWidget {
   final CustomPickerHandler? customPickerHandler;
   final CustomValidatorHandler? customValidatorHandler;
   late final JsonFormSchemaUiConfig uiConfig;
+  late final JsonSchemaLocalizationLabelConfig localizationLabelConfig;
+
+  void setLocalizationLabelConfig(JsonSchemaLocalizationLabelConfig? config) {
+    localizationLabelConfig = JsonSchemaLocalizationLabelConfig(
+      requiredLabel: config?.requiredLabel ?? 'Required',
+      selectOneLabel: config?.selectOneLabel ?? 'Select one',
+    );
+  }
 
   void setJsonFormSchemaStyle(
       BuildContext context, JsonFormSchemaUiConfig? uiConfig) {

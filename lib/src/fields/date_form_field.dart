@@ -59,7 +59,9 @@ class _DateJFormFieldState extends State<DateJFormField> {
           keyboardType: TextInputType.phone,
           validator: (value) {
             if (widget.property.required && (value == null || value.isEmpty)) {
-              return 'Required';
+              return WidgetBuilderInherited.of(context)
+                  .localizationLabelConfig
+                  .requiredLabel;
             }
             if (widget.customValidator != null)
               return widget.customValidator!(value);
