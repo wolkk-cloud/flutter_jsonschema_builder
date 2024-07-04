@@ -266,6 +266,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
                   ),
+                  customTheme: ThemeData.light().copyWith(
+                    colorScheme:
+                        const ColorScheme.light(primary: Color(0xFF0D1B27)),
+                  ),
                   textfieldDecoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
