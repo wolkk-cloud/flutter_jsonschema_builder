@@ -169,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final uiSchema = '''
 
 {
- "question": {
+ "question1": {
 						"ui:widget": "radio"
 					}
 }
@@ -213,6 +213,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 jsonSchema: jsonEncode(updateNumValuesToString(jsonSchema1)),
                 uiSchema: uiSchema,
                 showHeader: false,
+                jsonSchemaLocalizationLabelConfig:
+                    JsonSchemaLocalizationLabelConfig(
+                        requiredLabel: 'butuh', selectOneLabel: 'pilih satu'),
                 onFormDataSaved: (data) {
                   inspect(data);
                 },

@@ -4,13 +4,13 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cross_file/cross_file.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_jsonschema_builder/src/builder/array_schema_builder.dart';
 import 'package:flutter_jsonschema_builder/src/builder/logic/widget_builder_logic.dart';
 import 'package:flutter_jsonschema_builder/src/builder/object_schema_builder.dart';
 import 'package:flutter_jsonschema_builder/src/builder/property_schema_builder.dart';
 import 'package:flutter_jsonschema_builder/src/models/json_form_schema_style.dart';
+import 'package:flutter_jsonschema_builder/src/models/json_schema_localization_label_config.dart';
 
 import '../models/models.dart';
 
@@ -33,6 +33,7 @@ class JsonForm extends StatefulWidget {
     this.customValidatorHandler,
     this.showInspect = false,
     this.showHeader = true,
+    this.jsonSchemaLocalizationLabelConfig,
   }) : super(key: key);
 
   final String jsonSchema;
@@ -50,6 +51,8 @@ class JsonForm extends StatefulWidget {
   final bool showInspect;
 
   final bool showHeader;
+
+  final JsonSchemaLocalizationLabelConfig? jsonSchemaLocalizationLabelConfig;
   @override
   _JsonFormState createState() => _JsonFormState();
 }
@@ -115,7 +118,9 @@ class _JsonFormState extends State<JsonForm> {
           ),
         );
       }),
-    )..setJsonFormSchemaStyle(context, widget.jsonFormSchemaUiConfig);
+    )
+      ..setJsonFormSchemaStyle(context, widget.jsonFormSchemaUiConfig)
+      ..setLocalizationLabelConfig(widget.jsonSchemaLocalizationLabelConfig);
   }
 
   Widget _buildHeaderTitle(BuildContext context) {

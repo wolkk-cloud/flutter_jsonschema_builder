@@ -95,11 +95,16 @@ class _SelectedFormFieldState extends State<DropdownOneOfJFormField> {
               key: Key(widget.property.idKey),
               value: valueSelected,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              hint: const Text('Seleccione'),
+              hint: Text(WidgetBuilderInherited.of(context)
+                      .localizationLabelConfig
+                      .selectOneLabel ??
+                  'Select one'),
               isExpanded: false,
               validator: (value) {
                 if (widget.property.required && value == null) {
-                  return 'required';
+                  return WidgetBuilderInherited.of(context)
+                      .localizationLabelConfig
+                      .requiredLabel;
                 }
                 if (widget.customValidator != null)
                   return widget.customValidator!(value);
