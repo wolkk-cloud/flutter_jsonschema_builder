@@ -213,9 +213,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 jsonSchema: jsonEncode(updateNumValuesToString(jsonSchema1)),
                 uiSchema: uiSchema,
                 showHeader: false,
-                jsonSchemaLocalizationLabelConfig:
-                    JsonSchemaLocalizationLabelConfig(
-                        requiredLabel: 'butuh', selectOneLabel: 'pilih satu'),
+                jsonSchemaLocalizationLabelConfig: CustomLabel(
+                    requiredLabel: 'butuh', selectOneLabel: 'pilih satu'),
                 onFormDataSaved: (data) {
                   inspect(data);
                 },

@@ -1,5 +1,5 @@
-class JsonSchemaLocalizationLabelConfig {
-  JsonSchemaLocalizationLabelConfig({
+class CustomLabel {
+  CustomLabel({
     this.requiredLabel,
     this.selectOneLabel,
   });
