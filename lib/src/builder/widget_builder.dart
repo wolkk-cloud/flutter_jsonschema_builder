@@ -10,7 +10,7 @@ import 'package:flutter_jsonschema_builder/src/builder/logic/widget_builder_logi
 import 'package:flutter_jsonschema_builder/src/builder/object_schema_builder.dart';
 import 'package:flutter_jsonschema_builder/src/builder/property_schema_builder.dart';
 import 'package:flutter_jsonschema_builder/src/models/json_form_schema_style.dart';
-import 'package:flutter_jsonschema_builder/src/models/json_schema_localization_label_config.dart';
+import 'package:flutter_jsonschema_builder/src/models/custom_label.dart';
 
 import '../models/models.dart';
 
@@ -52,7 +52,7 @@ class JsonForm extends StatefulWidget {
 
   final bool showHeader;
 
-  final JsonSchemaLocalizationLabelConfig? jsonSchemaLocalizationLabelConfig;
+  final CustomLabel? jsonSchemaLocalizationLabelConfig;
   @override
   _JsonFormState createState() => _JsonFormState();
 }
