@@ -60,7 +60,7 @@ class _DateJFormFieldState extends State<DateJFormField> {
           validator: (value) {
             if (widget.property.required && (value == null || value.isEmpty)) {
               return WidgetBuilderInherited.of(context)
-                  .localizationLabelConfig
+                  .customLabel
                   .requiredLabel;
             }
             if (widget.customValidator != null)

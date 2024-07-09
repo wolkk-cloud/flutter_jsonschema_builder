@@ -80,9 +80,7 @@ class _RadioButtonJFormFieldState extends State<RadioButtonJFormField> {
       },
       validator: (value) {
         if (widget.property.required && value == null) {
-          return WidgetBuilderInherited.of(context)
-              .localizationLabelConfig
-              .requiredLabel;
+          return WidgetBuilderInherited.of(context).customLabel.requiredLabel;
         }
         if (widget.customValidator != null)
           return widget.customValidator!(value);

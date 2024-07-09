@@ -120,7 +120,7 @@ class _JsonFormState extends State<JsonForm> {
       }),
     )
       ..setJsonFormSchemaStyle(context, widget.jsonFormSchemaUiConfig)
-      ..setLocalizationLabelConfig(widget.jsonSchemaLocalizationLabelConfig);
+      ..setcustomLabel(widget.jsonSchemaLocalizationLabelConfig);
   }
 
   Widget _buildHeaderTitle(BuildContext context) {

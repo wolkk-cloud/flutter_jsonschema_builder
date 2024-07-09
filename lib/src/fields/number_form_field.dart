@@ -73,7 +73,7 @@ class _NumberJFormFieldState extends State<NumberJFormField> {
           validator: (String? value) {
             if (widget.property.required && value != null && value.isEmpty) {
               return WidgetBuilderInherited.of(context)
-                  .localizationLabelConfig
+                  .customLabel
                   .requiredLabel;
             }
             if (widget.property.minLength != null &&
