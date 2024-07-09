@@ -55,25 +55,29 @@ class _CheckboxJFormFieldState extends State<CheckboxJFormField> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CheckboxListTile(
-                  value: field.value,
-                  title: Text(
-                    widget.property.title ?? 'Yes',
-                    style: widget.property.readOnly
-                        ? const TextStyle(color: Colors.grey)
-                        : WidgetBuilderInherited.of(context).uiConfig.label,
-                  ),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  onChanged: widget.property.readOnly
-                      ? null
-                      : (bool? value) {
-                          field.didChange(value);
-                          if (widget.onChanged != null && value != null) {
-                            widget.onChanged!(value);
-                          }
-                        },
-                  tristate: true,
-                ),
+                WidgetBuilderInherited.of(context)
+                        .uiConfig
+                        .customCheckboxBuilder
+                        ?.call(field, widget) ??
+                    CheckboxListTile(
+                      value: field.value,
+                      title: Text(
+                        widget.property.title ?? 'Yes',
+                        style: widget.property.readOnly
+                            ? const TextStyle(color: Colors.grey)
+                            : WidgetBuilderInherited.of(context).uiConfig.label,
+                      ),
+                      controlAffinity: ListTileControlAffinity.leading,
+                      onChanged: widget.property.readOnly
+                          ? null
+                          : (bool? value) {
+                              field.didChange(value);
+                              if (widget.onChanged != null && value != null) {
+                                widget.onChanged!(value);
+                              }
+                            },
+                      tristate: true,
+                    ),
                 if (field.hasError) CustomErrorText(text: field.errorText!),
               ],
             );

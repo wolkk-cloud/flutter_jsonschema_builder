@@ -96,14 +96,14 @@ class _SelectedFormFieldState extends State<DropdownOneOfJFormField> {
               value: valueSelected,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               hint: Text(WidgetBuilderInherited.of(context)
-                      .localizationLabelConfig
+                      .customLabel
                       .selectOneLabel ??
                   'Select one'),
               isExpanded: false,
               validator: (value) {
                 if (widget.property.required && value == null) {
                   return WidgetBuilderInherited.of(context)
-                      .localizationLabelConfig
+                      .customLabel
                       .requiredLabel;
                 }
                 if (widget.customValidator != null)

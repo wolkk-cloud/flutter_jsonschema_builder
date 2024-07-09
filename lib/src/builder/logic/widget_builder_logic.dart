@@ -23,10 +23,10 @@ class WidgetBuilderInherited extends InheritedWidget {
   final CustomPickerHandler? customPickerHandler;
   final CustomValidatorHandler? customValidatorHandler;
   late final JsonFormSchemaUiConfig uiConfig;
-  late final CustomLabel localizationLabelConfig;
+  late final CustomLabel customLabel;
 
-  void setLocalizationLabelConfig(CustomLabel? config) {
-    localizationLabelConfig = CustomLabel(
+  void setcustomLabel(CustomLabel? config) {
+    customLabel = CustomLabel(
       requiredLabel: config?.requiredLabel ?? 'Required',
       selectOneLabel: config?.selectOneLabel ?? 'Select one',
     );
@@ -55,6 +55,7 @@ class WidgetBuilderInherited extends InheritedWidget {
       removeItemBuilder: uiConfig?.removeItemBuilder,
       submitButtonBuilder: uiConfig?.submitButtonBuilder,
       addFileButtonBuilder: uiConfig?.addFileButtonBuilder,
+      customCheckboxBuilder: uiConfig?.customCheckboxBuilder,
     );
   }
 
