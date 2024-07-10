@@ -56,6 +56,7 @@ class WidgetBuilderInherited extends InheritedWidget {
       submitButtonBuilder: uiConfig?.submitButtonBuilder,
       addFileButtonBuilder: uiConfig?.addFileButtonBuilder,
       customCheckboxBuilder: uiConfig?.customCheckboxBuilder,
+      customRadioBuilder: uiConfig?.customRadioBuilder,
     );
   }
 

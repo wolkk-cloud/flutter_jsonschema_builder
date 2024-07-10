@@ -18,6 +18,7 @@ class JsonFormSchemaUiConfig {
     this.textfieldDecoration,
     this.customTheme,
     this.customCheckboxBuilder,
+    this.customRadioBuilder,
   });
 
   TextStyle? fieldTitle;
@@ -32,8 +33,15 @@ class JsonFormSchemaUiConfig {
 
   Widget Function(VoidCallback onPressed, String key)? addItemBuilder;
   Widget Function(VoidCallback onPressed, String key)? removeItemBuilder;
-  Widget Function(FormFieldState<bool?> field,
-      PropertyFieldWidget<bool?> widgetProperty)? customCheckboxBuilder;
+  Widget Function(
+    FormFieldState<bool?> field,
+    PropertyFieldWidget<bool?> widgetProperty,
+  )? customCheckboxBuilder;
+  Widget Function(
+    FormFieldState<dynamic> field,
+    PropertyFieldWidget<dynamic> widgetProperty,
+    int index,
+  )? customRadioBuilder;
 
   /// render a custom submit button
   /// @param [VoidCallback] submit function

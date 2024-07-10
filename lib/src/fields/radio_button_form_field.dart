@@ -98,7 +98,12 @@ class _RadioButtonJFormFieldState extends State<RadioButtonJFormField> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: List<Widget>.generate(
                   widget.property.enumm?.length ?? 0,
-                  (int i) => RadioListTile(
+                  (int i) =>
+                      WidgetBuilderInherited.of(context)
+                          .uiConfig
+                          .customRadioBuilder
+                          ?.call(field, widget, i) ??
+                      RadioListTile(
                         value: widget.property.enumm != null
                             ? widget.property.enumm![i]
                             : i,
