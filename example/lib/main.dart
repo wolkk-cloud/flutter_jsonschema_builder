@@ -169,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final uiSchema = '''
 
 {
- "question1": {
+ "question": {
 						"ui:widget": "radio"
 					}
 }
@@ -260,6 +260,40 @@ class _MyHomePageState extends State<MyHomePage> {
                   }
                 },
                 jsonFormSchemaUiConfig: JsonFormSchemaUiConfig(
+                  customRadioBuilder: (field, widgetProperty, index) => Card(
+                    color: field.value ==
+                            (widgetProperty.property.enumm != null
+                                ? widgetProperty.property.enumm![index]
+                                : index)
+                        ? Colors.green
+                        : null, // Mengubah warna card jika terpilih
+                    child: InkWell(
+                      onTap: widgetProperty.property.readOnly
+                          ? null
+                          : () {
+                              var value = widgetProperty.property.enumm != null
+                                  ? widgetProperty.property.enumm![index]
+                                  : index;
+                              if (value != null) {
+                                field.didChange(value);
+                                if (widgetProperty.onChanged != null) {
+                                  widgetProperty.onChanged!(value);
+                                }
+                              }
+                            },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          widgetProperty.property.enumNames?[index] ??
+                              widgetProperty.property.enumm?[index],
+                          style: TextStyle(
+                              color: widgetProperty.property.readOnly
+                                  ? Colors.grey
+                                  : Colors.black),
+                        ),
+                      ),
+                    ),
+                  ),
                   customCheckboxBuilder: (field, widgetProperty) => Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
