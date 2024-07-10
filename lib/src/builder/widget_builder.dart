@@ -33,7 +33,7 @@ class JsonForm extends StatefulWidget {
     this.customValidatorHandler,
     this.showInspect = false,
     this.showHeader = true,
-    this.jsonSchemaLocalizationLabelConfig,
+    this.customLabel,
   }) : super(key: key);
 
   final String jsonSchema;
@@ -52,7 +52,7 @@ class JsonForm extends StatefulWidget {
 
   final bool showHeader;
 
-  final CustomLabel? jsonSchemaLocalizationLabelConfig;
+  final CustomLabel? customLabel;
   @override
   _JsonFormState createState() => _JsonFormState();
 }
@@ -120,7 +120,7 @@ class _JsonFormState extends State<JsonForm> {
       }),
     )
       ..setJsonFormSchemaStyle(context, widget.jsonFormSchemaUiConfig)
-      ..setcustomLabel(widget.jsonSchemaLocalizationLabelConfig);
+      ..setcustomLabel(widget.customLabel);
   }
 
   Widget _buildHeaderTitle(BuildContext context) {
