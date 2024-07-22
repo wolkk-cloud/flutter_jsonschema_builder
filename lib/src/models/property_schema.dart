@@ -53,6 +53,7 @@ class SchemaProperty extends Schema {
           id: id,
           type: type,
           description: description,
+          title: title,
         );
 
   factory SchemaProperty.fromJson(
