@@ -84,37 +84,42 @@ class _JsonFormState extends State<JsonForm> {
       child: Builder(builder: (context) {
         final widgetBuilderInherited = WidgetBuilderInherited.of(context);
 
-        return SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Container(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                children: <Widget>[
-                  if (widget.showInspect)
-                    TextButton(
-                      onPressed: () {
-                        inspect(mainSchema);
-                      },
-                      child: const Text('INSPECT'),
-                    ),
-                  if (widget.showHeader) _buildHeaderTitle(context),
-                  FormFromSchemaBuilder(
-                    mainSchema: mainSchema,
-                    schema: mainSchema,
-                    showHeader: widget.showHeader,
+        return Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    children: <Widget>[
+                      if (widget.showInspect)
+                        TextButton(
+                          onPressed: () {
+                            inspect(mainSchema);
+                          },
+                          child: const Text('INSPECT'),
+                        ),
+                      if (widget.showHeader) _buildHeaderTitle(context),
+                      FormFromSchemaBuilder(
+                        mainSchema: mainSchema,
+                        schema: mainSchema,
+                        showHeader: widget.showHeader,
+                      ),
+                      const SizedBox(height: 20),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  widgetBuilderInherited.uiConfig.submitButtonBuilder == null
-                      ? ElevatedButton(
-                          onPressed: () => onSubmit(widgetBuilderInherited),
-                          child: const Text('Submit'),
-                        )
-                      : widgetBuilderInherited.uiConfig.submitButtonBuilder!(
-                          () => onSubmit(widgetBuilderInherited)),
-                ],
+                ),
               ),
-            ),
+              const Spacer(),
+              widgetBuilderInherited.uiConfig.submitButtonBuilder == null
+                  ? ElevatedButton(
+                      onPressed: () => onSubmit(widgetBuilderInherited),
+                      child: const Text('Submit'),
+                    )
+                  : widgetBuilderInherited.uiConfig.submitButtonBuilder!(
+                      () => onSubmit(widgetBuilderInherited)),
+            ],
           ),
         );
       }),
