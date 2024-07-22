@@ -90,7 +90,7 @@ class _JsonFormState extends State<JsonForm> {
             children: [
               SingleChildScrollView(
                 child: Container(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: <Widget>[
                       if (widget.showInspect)
