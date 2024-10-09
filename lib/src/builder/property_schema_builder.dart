@@ -35,7 +35,10 @@ class PropertySchemaBuilder extends StatelessWidget {
     // sort
     final schemaPropertySorted = schemaProperty;
 
-    if (schemaProperty.widget == 'radio') {
+    if (schemaProperty.widget == 'hidden') {
+      updateData(context, schemaProperty.defaultValue);
+      return _field;
+    } else if (schemaProperty.widget == 'radio') {
       _field = RadioButtonJFormField(
         property: schemaPropertySorted,
         onChanged: (value) {
