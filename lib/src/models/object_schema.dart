@@ -11,6 +11,7 @@ class SchemaObject extends Schema {
           id: id,
           type: SchemaType.object,
           description: description,
+          title: title,
         );
 
   factory SchemaObject.fromJson(

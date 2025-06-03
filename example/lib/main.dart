@@ -213,6 +213,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 jsonSchema: jsonEncode(updateNumValuesToString(jsonSchema1)),
                 uiSchema: uiSchema,
                 showHeader: false,
+                customLabel: CustomLabel(
+                    requiredLabel: 'butuh', selectOneLabel: 'pilih satu'),
                 onFormDataSaved: (data) {
                   inspect(data);
                 },
@@ -258,10 +260,82 @@ class _MyHomePageState extends State<MyHomePage> {
                   }
                 },
                 jsonFormSchemaUiConfig: JsonFormSchemaUiConfig(
+                  customRadioBuilder: (field, widgetProperty, index) => Card(
+                    color: field.value ==
+                            (widgetProperty.property.enumm != null
+                                ? widgetProperty.property.enumm![index]
+                                : index)
+                        ? Colors.green
+                        : null, // Mengubah warna card jika terpilih
+                    child: InkWell(
+                      onTap: widgetProperty.property.readOnly
+                          ? null
+                          : () {
+                              var value = widgetProperty.property.enumm != null
+                                  ? widgetProperty.property.enumm![index]
+                                  : index;
+                              if (value != null) {
+                                field.didChange(value);
+                                if (widgetProperty.onChanged != null) {
+                                  widgetProperty.onChanged!(value);
+                                }
+                              }
+                            },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          widgetProperty.property.enumNames?[index] ??
+                              widgetProperty.property.enumm?[index],
+                          style: TextStyle(
+                              color: widgetProperty.property.readOnly
+                                  ? Colors.grey
+                                  : Colors.black),
+                        ),
+                      ),
+                    ),
+                  ),
+                  customCheckboxBuilder: (field, widgetProperty) => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ElevatedButton(
+                          onPressed: widgetProperty.property.readOnly
+                              ? null
+                              : () {
+                                  field.didChange(true);
+                                  if (widgetProperty.onChanged != null) {
+                                    widgetProperty.onChanged!(true);
+                                  }
+                                },
+                          child: const Text('Yes'),
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStateProperty.all(
+                              field.value == true ? Colors.green : null,
+                            ),
+                          )),
+                      const SizedBox(width: 8), // Spacing between the buttons
+                      ElevatedButton(
+                          onPressed: widgetProperty.property.readOnly
+                              ? null
+                              : () {
+                                  field.didChange(false);
+                                  widgetProperty.onChanged?.call(false);
+                                },
+                          child: const Text('No'),
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStateProperty.all(
+                              field.value == false ? Colors.green : null,
+                            ),
+                          )),
+                    ],
+                  ),
                   title: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
+                  ),
+                  customTheme: ThemeData.light().copyWith(
+                    colorScheme:
+                        const ColorScheme.light(primary: Color(0xFF0D1B27)),
                   ),
                   textfieldDecoration: const InputDecoration(
                     border: OutlineInputBorder(
@@ -312,14 +386,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         onPressed: onPressed,
                         child: Text('+ Agregar archivo $key'),
                         style: ButtonStyle(
-                            minimumSize: MaterialStateProperty.all(
+                            minimumSize: WidgetStateProperty.all(
                                 const Size(double.infinity, 40)),
-                            backgroundColor: MaterialStateProperty.all(
+                            backgroundColor: WidgetStateProperty.all(
                               const Color(0xffcee5ff),
                             ),
-                            side: MaterialStateProperty.all(
+                            side: WidgetStateProperty.all(
                                 const BorderSide(color: Color(0xffafd5ff))),
-                            textStyle: MaterialStateProperty.all(
+                            textStyle: WidgetStateProperty.all(
                                 const TextStyle(color: Color(0xff057afb)))),
                       );
                     }

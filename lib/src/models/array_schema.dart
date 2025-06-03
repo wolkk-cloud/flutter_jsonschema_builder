@@ -21,6 +21,7 @@ class SchemaArray extends Schema {
   }) : super(
           id: id,
           type: SchemaType.array,
+          title: title,
         );
 
   factory SchemaArray.fromJson(

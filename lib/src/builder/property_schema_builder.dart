@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:cross_file/cross_file.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_jsonschema_builder/src/builder/logic/object_schema_logic.dart';
 import 'package:flutter_jsonschema_builder/src/builder/logic/widget_builder_logic.dart';
@@ -36,7 +35,10 @@ class PropertySchemaBuilder extends StatelessWidget {
     // sort
     final schemaPropertySorted = schemaProperty;
 
-    if (schemaProperty.widget == 'radio') {
+    if (schemaProperty.widget == 'hidden') {
+      updateData(context, schemaProperty.defaultValue);
+      return _field;
+    } else if (schemaProperty.widget == 'radio') {
       _field = RadioButtonJFormField(
         property: schemaPropertySorted,
         onChanged: (value) {

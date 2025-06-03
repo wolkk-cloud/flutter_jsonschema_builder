@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_jsonschema_builder/src/builder/widget_builder.dart';
 import 'package:flutter_jsonschema_builder/src/models/json_form_schema_style.dart';
+import 'package:flutter_jsonschema_builder/src/models/custom_label.dart';
 import 'package:flutter_jsonschema_builder/src/models/schema.dart';
 
 class WidgetBuilderInherited extends InheritedWidget {
@@ -22,6 +23,14 @@ class WidgetBuilderInherited extends InheritedWidget {
   final CustomPickerHandler? customPickerHandler;
   final CustomValidatorHandler? customValidatorHandler;
   late final JsonFormSchemaUiConfig uiConfig;
+  late final CustomLabel customLabel;
+
+  void setcustomLabel(CustomLabel? config) {
+    customLabel = CustomLabel(
+      requiredLabel: config?.requiredLabel ?? 'Required',
+      selectOneLabel: config?.selectOneLabel ?? 'Select one',
+    );
+  }
 
   void setJsonFormSchemaStyle(
       BuildContext context, JsonFormSchemaUiConfig? uiConfig) {
@@ -40,11 +49,14 @@ class WidgetBuilderInherited extends InheritedWidget {
       fieldTitle: uiConfig?.fieldTitle ?? textTheme.bodyMedium,
       label: uiConfig?.label,
       textfieldDecoration: uiConfig?.textfieldDecoration,
+      customTheme: uiConfig?.customTheme,
       //builders
       addItemBuilder: uiConfig?.addItemBuilder,
       removeItemBuilder: uiConfig?.removeItemBuilder,
       submitButtonBuilder: uiConfig?.submitButtonBuilder,
       addFileButtonBuilder: uiConfig?.addFileButtonBuilder,
+      customCheckboxBuilder: uiConfig?.customCheckboxBuilder,
+      customRadioBuilder: uiConfig?.customRadioBuilder,
     );
   }
 

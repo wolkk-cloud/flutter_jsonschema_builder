@@ -4,13 +4,13 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cross_file/cross_file.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_jsonschema_builder/src/builder/array_schema_builder.dart';
 import 'package:flutter_jsonschema_builder/src/builder/logic/widget_builder_logic.dart';
 import 'package:flutter_jsonschema_builder/src/builder/object_schema_builder.dart';
 import 'package:flutter_jsonschema_builder/src/builder/property_schema_builder.dart';
 import 'package:flutter_jsonschema_builder/src/models/json_form_schema_style.dart';
+import 'package:flutter_jsonschema_builder/src/models/custom_label.dart';
 
 import '../models/models.dart';
 
@@ -33,6 +33,7 @@ class JsonForm extends StatefulWidget {
     this.customValidatorHandler,
     this.showInspect = false,
     this.showHeader = true,
+    this.customLabel,
   }) : super(key: key);
 
   final String jsonSchema;
@@ -50,6 +51,8 @@ class JsonForm extends StatefulWidget {
   final bool showInspect;
 
   final bool showHeader;
+
+  final CustomLabel? customLabel;
   @override
   _JsonFormState createState() => _JsonFormState();
 }
@@ -81,41 +84,48 @@ class _JsonFormState extends State<JsonForm> {
       child: Builder(builder: (context) {
         final widgetBuilderInherited = WidgetBuilderInherited.of(context);
 
-        return SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Container(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                children: <Widget>[
-                  if (widget.showInspect)
-                    TextButton(
-                      onPressed: () {
-                        inspect(mainSchema);
-                      },
-                      child: const Text('INSPECT'),
-                    ),
-                  if (widget.showHeader) _buildHeaderTitle(context),
-                  FormFromSchemaBuilder(
-                    mainSchema: mainSchema,
-                    schema: mainSchema,
-                    showHeader: widget.showHeader,
+        return Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: <Widget>[
+                      if (widget.showInspect)
+                        TextButton(
+                          onPressed: () {
+                            inspect(mainSchema);
+                          },
+                          child: const Text('INSPECT'),
+                        ),
+                      if (widget.showHeader) _buildHeaderTitle(context),
+                      FormFromSchemaBuilder(
+                        mainSchema: mainSchema,
+                        schema: mainSchema,
+                        showHeader: widget.showHeader,
+                      ),
+                      const SizedBox(height: 20),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  widgetBuilderInherited.uiConfig.submitButtonBuilder == null
-                      ? ElevatedButton(
-                          onPressed: () => onSubmit(widgetBuilderInherited),
-                          child: const Text('Submit'),
-                        )
-                      : widgetBuilderInherited.uiConfig.submitButtonBuilder!(
-                          () => onSubmit(widgetBuilderInherited)),
-                ],
+                ),
               ),
-            ),
+              const Spacer(),
+              widgetBuilderInherited.uiConfig.submitButtonBuilder == null
+                  ? ElevatedButton(
+                      onPressed: () => onSubmit(widgetBuilderInherited),
+                      child: const Text('Submit'),
+                    )
+                  : widgetBuilderInherited.uiConfig.submitButtonBuilder!(
+                      () => onSubmit(widgetBuilderInherited)),
+            ],
           ),
         );
       }),
-    )..setJsonFormSchemaStyle(context, widget.jsonFormSchemaUiConfig);
+    )
+      ..setJsonFormSchemaStyle(context, widget.jsonFormSchemaUiConfig)
+      ..setcustomLabel(widget.customLabel);
   }
 
   Widget _buildHeaderTitle(BuildContext context) {

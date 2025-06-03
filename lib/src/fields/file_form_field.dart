@@ -43,7 +43,7 @@ class _FileJFormFieldState extends State<FileJFormField> {
       key: Key(widget.property.idKey),
       validator: (value) {
         if ((value == null || value.isEmpty) && widget.property.required) {
-          return 'Required';
+          return WidgetBuilderInherited.of(context).customLabel.requiredLabel;
         }
 
         if (widget.customValidator != null)
@@ -145,7 +145,7 @@ class _FileJFormFieldState extends State<FileJFormField> {
       onPressed: _onTap(field),
       child: const Text('Add File'),
       style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all(const Size(double.infinity, 40)),
+        minimumSize: WidgetStateProperty.all(const Size(double.infinity, 40)),
       ),
     );
   }

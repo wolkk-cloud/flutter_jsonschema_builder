@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../fields/fields.dart';
+
 class JsonFormSchemaUiConfig {
   JsonFormSchemaUiConfig({
     this.fieldTitle,
@@ -14,6 +16,9 @@ class JsonFormSchemaUiConfig {
     this.submitButtonBuilder,
     this.addFileButtonBuilder,
     this.textfieldDecoration,
+    this.customTheme,
+    this.customCheckboxBuilder,
+    this.customRadioBuilder,
   });
 
   TextStyle? fieldTitle;
@@ -24,9 +29,19 @@ class JsonFormSchemaUiConfig {
   TextStyle? description;
   TextStyle? label;
   InputDecoration? textfieldDecoration;
+  ThemeData? customTheme;
 
   Widget Function(VoidCallback onPressed, String key)? addItemBuilder;
   Widget Function(VoidCallback onPressed, String key)? removeItemBuilder;
+  Widget Function(
+    FormFieldState<bool?> field,
+    PropertyFieldWidget<bool?> widgetProperty,
+  )? customCheckboxBuilder;
+  Widget Function(
+    FormFieldState<dynamic> field,
+    PropertyFieldWidget<dynamic> widgetProperty,
+    int index,
+  )? customRadioBuilder;
 
   /// render a custom submit button
   /// @param [VoidCallback] submit function
